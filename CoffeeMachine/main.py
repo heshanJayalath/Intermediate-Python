@@ -24,17 +24,31 @@ MENU ={
     },
 }
 
-resource = {
+RESOURCE = {
     "water":300,
     "milk":200,
     "coffee":100
 }
+def get_coin(chosen_drink):
+    print("Please insert coins.")
+    quarters = int(input("how many quarters: "))
+    dimes = int(input("how many dimes: "))
+    nickles = int(input("how many nickles: "))
+    pennies = int(input("how many pennies: "))
+    inserted_prize = (0.25*quarters)+(0.1*dimes)+(0.05*nickles)+(0.01*pennies)
+    remaining_change = inserted_prize-(MENU[chosen_drink]["cost"])
+    print(f"Here is ${round(remaining_change,2)} in change.")
+    print(f"Here is your {chosen_drink} ☕ Enjoy!")
+    updated_resources(chosen_drink)
 
-def calculate_resources():
-    return ""
+def updated_resources(chosen_drink):
+    pass
+
+
+
 
 def generate_report():
-    for key,value in resource.items():
+    for key,value in RESOURCE.items():
         print(f"{key} : {value}")
 
 user_input = True
@@ -42,9 +56,9 @@ while user_input:
     user_input = input("What would you like? (espresso/latte/cappuccino):")
     match user_input:
         case "espresso" | "latte" | "cappuccino":
-            print(f"{user_input}")
+            get_coin(user_input)
         case "report":
-            calculate_resources()
+            updated_resources()
         case "off":
             user_input = False
 
