@@ -42,13 +42,18 @@ def get_coin(chosen_drink):
     updated_resources(chosen_drink)
 
 def updated_resources(chosen_drink):
-    pass
-
-
+    for resource_key,resource_value in RESOURCE.items():
+        for key, value in MENU[chosen_drink]['ingredients'].items():
+            if resource_key == key:
+                RESOURCE[resource_key] =  RESOURCE[resource_key] - value
+                if RESOURCE[resource_key] < 0:
+                    print(f"Sorry there is not enough {resource_key}")
 
 
 def generate_report():
     for key,value in RESOURCE.items():
+        if value <= 0:
+            value = 0
         print(f"{key} : {value}")
 
 user_input = True
@@ -58,7 +63,7 @@ while user_input:
         case "espresso" | "latte" | "cappuccino":
             get_coin(user_input)
         case "report":
-            updated_resources()
+            generate_report()
         case "off":
             user_input = False
 
